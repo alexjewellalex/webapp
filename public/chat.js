@@ -5,7 +5,7 @@ window.onload = function() {
     var field = document.getElementById("field");
     var sendButton = document.getElementById("send");
     var content = document.getElementById("content");
-    var name = document.getElementById("name");
+    var name = "AJ";
  
     socket.on('message', function (data) {
         if(data.message) {
@@ -27,7 +27,7 @@ window.onload = function() {
             alert("Please type your name!");
         } else {
             var text = field.value;
-            socket.emit('send', { message: text, username: name.value });
+            socket.emit('send', { message: text, username: name });
             field.value = "";
         }
     };
