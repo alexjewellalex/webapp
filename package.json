@@ -1,0 +1,11 @@
+{
+    "name": "GogoConnect",
+    "version": "0.0.0",
+    "description": "Gogo messaging client",
+    "dependencies": {
+        "socket.io": "latest",
+        "express": "latest",
+        "jade": "latest"
+    },
+    "author": "gogoconnect"
+}
