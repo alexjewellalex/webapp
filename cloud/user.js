@@ -1,6 +1,3 @@
-
-// Provides endpoints for user signup and login
-
 module.exports = function(){
   var express = require('express');
   var app = express();

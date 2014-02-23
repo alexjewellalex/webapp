@@ -36,12 +36,7 @@ app.get('/', function(req, res) {
   }
   else {
     var user = Parse.User.current();
-    res.render('settings', {
-      firstName: user.get('firstName') || '',
-      lastName: user.get('lastName') || '',
-      headline: user.get('headline') || '',
-      linkedin: user.get('linkedin') || '',
-    });
+    res.render('hello', {message: 'Welcome, ' + user.get('username')});
   }
 });
 
