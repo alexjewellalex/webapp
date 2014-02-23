@@ -1,57 +1,67 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
      <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
      <% if (locals.title) { %>
        <title><%= title %></title>
      <% } else { %>
-       <title>AnyImg</title>
+       <title>Gogo Alex</title>
      <% } %>
      <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
      <script src="/javascripts/backbone.js"></script>
      <script src="https://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
      <script>
-       Parse.initialize("OPqna189K6mc31nqwGV8BtWrFMRTHRNNCE1iohOF", "1fUAZ3gGM2CtLRJfMk497GTzDFlN48pMR5invyFy");
+       Parse.initialize("PEhSWs2hU3R0WD3xrgZAUNCAUFKsxqr0jpASlxY9", "vwxMBoUM6JC2zCUFkw53JtfJfGH0ZALW7otaMetM");
      </script>
      <script type="text/javascript" src="/javascripts/main.js"></script>
+     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+     <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css" rel="stylesheet">
      <link href="/stylesheets/styles.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
-    <div id="content">
-      <div id="bar">
-        <a class="logo" href="/">
-          <h1>AnyImg</h1>
-        </a>
-      
-        <ul class="right">
-        <% if (!Parse.User.current()) { %>
-          <li>
-            <a href="/">Share an image</a>
-            | <a href="/i/latest">Latest</a>
-            | <a href="/login">Login</a>
-            | <a href="/signup">Signup</a>
-          </li>
-        <% } else { %>
-          <li>
-            <a href="/i/mine"><%= Parse.User.current().get('username') %></a>
-            | <a href="/">Share an image</a>
-            | <form action="/logout" method="post">
-              <a href="#" data-action="post">Logout</a>
-            </form>
-          </li>
-        <% } %>
-        </ul>
-      </div>
-      
-      <div id="main">
-        <% if (locals.flash) { %>
-          <div class="flash"><%= flash %></div>
-        <% } %>
-        
-        <%- body %>
-      </div>
-    </div>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- You'll want to use a responsive image option so this logo looks good on devices - I recommend using something like retina.js (do a quick Google search for it and you'll find it) -->
+          <a class="navbar-brand logo-nav" href="/"><img src="http://placehold.it/150x75&text=GogoAlex"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <% if (!Parse.User.current()) { %>
+            <li><a class="login-link" href="/login">Login</a></li>
+            <li><a class="login-link" href="/signup">Register</a></li>
+          <% } else { %>
+            <li><a href="/i/mine"><%= Parse.User.current().get('username') %></a></li>
+            <li><a href="logout">Logout</a></li>
+          <% } %>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+
+    <div class="container">
+
+      <% if (locals.flash) { %>
+        <div class="flash"><%= flash %></div>
+      <% } %>
+
+      <%- body %>
+
+    </div><!-- /.container -->
   </body>
 </html>
-  
+

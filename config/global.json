@@ -1,14 +1,14 @@
 {
     "applications": {
-        "Gogo Connect": {
-            "applicationId": "OPqna189K6mc31nqwGV8BtWrFMRTHRNNCE1iohOF", 
-            "masterKey": "ZEx2zx8nDsznEfZSJ01QRllvPEblLVWrQ2dn17uP"
+        "Gogo Alex": {
+            "applicationId": "PEhSWs2hU3R0WD3xrgZAUNCAUFKsxqr0jpASlxY9", 
+            "masterKey": "yOSIAqlguY7cS0x7NLL5vkMZwyLFv3V2VkoF9Bce"
         }, 
         "_default": {
-            "link": "Gogo Connect"
+            "link": "Gogo Alex"
         }
     }, 
     "global": {
-        "parseVersion": "1.2.16"
+        "parseVersion": "1.2.12"
     }
 }

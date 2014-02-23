@@ -1,76 +1,65 @@
 
-function getEmailPrefix(email)
-{
-    return email.substring(0, email.indexOf("@"));
-}
+// Provides endpoints for user signup and login
 
-//
-// Regiters a GC User!
-//
-exports.register = function(parameters)
-{
-    if ((!parameters.password && typeof parameters.password == 'undefined') ||
-        (!parameters.email && typeof parameters.email == 'undefined'))
-    {
-        console.log("Registration request is missing some parameters");
-        return new Parse.Promise().reject("Registration request is missing some parameters")
+module.exports = function(){
+  var express = require('express');
+  var app = express();
+
+  app.get('/login', function(req, res) {
+    if(!Parse.User.current()) {
+      res.render('login', {error_message: '0'});
     }
+  });
 
-    var username = getEmailPrefix(parameters.email);
-    var password = parameters.password;
-    var email = parameters.email;
-
-    return register_a_user(username, password, email);
-};
-
-function register_a_user(username, password, email)
-{
-    var user = new Parse.User();
-    user.set('username', username);
-    user.set('password', password);
-    user.set('email', email);
-
-    var promise = new Parse.Promise();
-    user.signUp().then(function(user)
-    {
-        promise.resolve(user);
-    },
-    function(error)
-    {
-        promise.reject("User Not Created");
+  app.post('/user_login', function(req, res) {
+    var the_user = "false";
+    Parse.User.logIn(req.body.email, req.body.password, {
+      success: function(user) {
+        the_user = req.body.email;
+        res.render('hello', {message: 'Welcome, ' + the_user});
+      },
+      error: function(user, error) {
+        res.render('login', {error_message: 'There was a problem logging in!'});
+      }
     });
+  });
 
-    return promise;
-}
-
-//
-// Returns true if user can login with this username
-//
-exports.login = function(parameters)
-{
-    if ((!parameters.password && typeof parameters.password == 'undefined') ||
-        (!parameters.email && typeof parameters.email == 'undefined'))
-    {
-        console.log("Can't login without username and password");
-        return new Parse.Promise().reject("Can't login without username and password")
+  app.get('/signup', function(req, res) {
+    if(!Parse.User.current()) {
+      res.render('signup', {error_message: '0'});
     }
+  });
 
-    var username = getEmailPrefix(parameters.email);
-    var password = parameters.password;
+  app.post('/signup_process', function(req, res) {
+    var the_registrant = "false";
+    var user = new Parse.User();
+    user.set('username', req.body.email);
+    user.set('email', req.body.email);
+    user.set('password', req.body.password);
+    user.set('firstname', req.body.firstname);
+    user.set('lastname', req.body.lastname);
+     
+    user.signUp(null, {
+      success: function(user) {
+        the_registrant = req.body.email;
+        res.render('hello', {message: 'Welcome, ' + the_registrant});
+      },
+      error: function(user, error) {
+        res.render('signup', {error_message: 'There was a problem registering!'});
+      }
+    });
+  });
 
-    var currentUser = Parse.User.current();
-    if (currentUser && Parse.User.current().getUsername() == username)
-    {
-        console.log("Already logged in");
-        return new Parse.Promise().resolve(Parse.User().current());
-    }
 
-    var options = {
-        username: username,
-        email: parameters.email,
-        password: password
-    };
+  // Logs out the user
+  app.get('/logout', function(req, res) {
+    Parse.User.logOut();
+    res.redirect('/');
+  });
 
-    var user = new Parse.User(options);
-    return user.logIn(username, password, options);
-};
+  app.get('/debug', function(req, res) {
+
+  });
+
+  return app;
+}();

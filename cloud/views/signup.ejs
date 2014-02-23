@@ -1,11 +1,19 @@
-<form action="/signup" method="post" id="signup">
+<form action="/signup_process" method="post" id="signup">
   <h2>Sign Up</h2>
 
-  <label for="username">Username</label>
-  <input type="text" value="" name="username" />
+  <% if(error_message.length > 1){ %><div class="alert alert-danger"><p><%= error_message %></p></div><% } %>
+
+  <label for="username">E-Mail</label>
+  <input type="text" value="" name="email" />
   
   <label for="password">Password</label>
   <input type="password" value="" name="password" />
+
+  <label for="firstname">First Name</label>
+  <input type="text" value="" name="firstname" />
+
+  <label for="lastname">Last Name</label>
+  <input type="text" value="" name="lastname" />
   
   <div class="submit">
     <button>Sign Up</button>
